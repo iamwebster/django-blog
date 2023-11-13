@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}Search{% endblock %}
+
+{% block content %}
+<div class="list-group">
+    {% if searched %}
+    <h1 class="card-title">You Searched For {{ searched }}</h1>
+    {% for post in post_search %}
+    <a href="{% url 'detail' post.pk %}" class="list-group-item list-group-item-action">
+        <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">{{ post.title }}</h5>
+            <small class="text-body-secondary">{{ post.time_created|time:"H:i" }}
+                {{post.time_created|date:"l d.m.y"}}</small>
+        </div>
+        <p class="mb-1">{{ post.content|truncatewords:50 }} </p>
+        <small class="text-body-secondary">{{ post.author.last_name }} {{ post.author.first_name }}</small>
+    </a>
+    {% endfor %}
+    {% else %}
+    <h1 class="card-title">Search is empty...</h1>
+    {% endif %}
+    <a href="{% url 'home' %}" class="btn btn-secondary">Back to Home page</a>
+</div>
+{% endblock %}

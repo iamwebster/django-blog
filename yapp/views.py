@@ -74,3 +74,12 @@ def logout_user(request):
     logout(request)
     return redirect('home')
 
+
+
+def search_post(request):
+    if request.method == 'POST':
+        searched = request.POST['searched']
+        post_search = Post.objects.filter(title__contains=searched)
+        return render(request, template_name='search.html', context={'searched': searched, 'post_search': post_search})
+    else:
+        return render(request, template_name='search.html', context={})
