@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}Add page{% endblock %}
+
+{% block content %}
+<h1 class="card-title">Form for add post</h1>
+<form method="post">
+    {% csrf_token %}
+    <label class="form-label">Title</label>
+    {{ form_data.title }}<br />
+    <label class="form-label">Author</label>
+    {{ form_data.author }}<br />
+    <label class="form-label">Text</label>
+    {{ form_data.content }}<br />
+    <span>{{ error }}</span>
+    <button type="submit" class="btn btn-success">Submit</button>
+    <a href="{% url 'home' %}" class="btn btn-secondary">Back</a>
+</form>
+
+{% endblock %}
