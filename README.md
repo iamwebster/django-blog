@@ -6,3 +6,5 @@
 + Register new users ⬇
 + Login to blog ✅
 + Click buttons 🔘
+
+*Design thanks to bootstrap*
