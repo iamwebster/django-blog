@@ -1,10 +1,10 @@
 from typing import Any
 from django.db.models.query import QuerySet
 from .models import Post 
-from django.views.generic import ListView, DetailView, DeleteView, CreateView
+from django.views.generic import ListView, DetailView, DeleteView, CreateView, UpdateView
 from django.urls import reverse_lazy
 from django.shortcuts import render, redirect
-from .forms import AddPageForm, RegisterUserForm, LoginUserForm
+from .forms import AddPageForm, RegisterUserForm, LoginUserForm, UpdatePostForm
 from django.contrib.auth.views import LoginView
 from django.contrib.auth import logout, login
 
@@ -13,7 +13,7 @@ class HomePage(ListView):
     model = Post 
     template_name = 'home.html'
     context_object_name = 'posts'
-    ordering = ['-id']
+    ordering = ['-time_updated']
     paginate_by = 5
     def search_query(self):
         return self.request.GET.get('search', '')
@@ -38,15 +38,17 @@ def add_page(request):
     form = AddPageForm()
     return render(request, 'add_page.html', context={'form_data': form, 'error': error})
 
-# class AddPost(CreateView):
-#     model = Post 
-#     template_name = 'add_page.html'
-#     form_class = AddPageForm
-
 
 class DeletePost(DeleteView):
     model = Post 
     template_name = 'delete_post.html'
+    success_url = reverse_lazy('home')
+
+
+class UpdatePost(UpdateView):
+    model = Post 
+    form_class = UpdatePostForm
+    template_name = 'update_post.html'
     success_url = reverse_lazy('home')
 
 
@@ -68,12 +70,9 @@ class LoginUser(LoginView):
         return reverse_lazy('home')
     
 
-
-
 def logout_user(request):
     logout(request)
     return redirect('home')
-
 
 
 def search_post(request):

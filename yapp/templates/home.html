@@ -9,11 +9,20 @@
     <a href="{% url 'detail' post.pk %}" class="list-group-item list-group-item-action">
         <div class="d-flex w-100 justify-content-between">
             <h5 class="mb-1">{{ post.title }}</h5>
+            {% if post.time_created == post.time_updated %}
             <small class="text-body-secondary">{{ post.time_created|time:"H:i" }}
                 {{post.time_created|date:"l d.m.y"}}</small>
+            {% else %}
+            <small class="text-body-secondary"><b>Updated</b> {{ post.time_updated|time:"H:i" }}
+                {{post.time_updated|date:"l d.m.y"}}</small>
+            {% endif %}
         </div>
         <p class="mb-1">{{ post.content|truncatewords:50 }} </p>
+        {% if post.author.last_name %}
         <small class="text-body-secondary">{{ post.author.last_name }} {{ post.author.first_name }}</small>
+        {% else %}
+        <small class="text-body-secondary">Unknow author</small>
+        {% endif %}
     </a>
     {% endfor %}
 </div>

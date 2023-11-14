@@ -4,24 +4,10 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 
 
-
-# class AddPageForm(forms.ModelForm):
-
-#     class Meta:
-#         model = Post
-#         fields = ['title', 'author', 'content']
-#         widgets = {
-#             'title': forms.TextInput(attrs={'class': 'form-control'}),
-#             'author': forms.Select(attrs={'class': 'form-control'}),
-#             'content': forms.Textarea(attrs={'class': 'form-control'})
-#         }
-
-
 class AddPageForm(forms.ModelForm):
     class Meta:
         model = Post
         fields = ['title', 'author', 'content']
-
         widgets = {
             'title': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Write your title...'}),
             'author': forms.Select(attrs={'class': 'form-control'}),
@@ -36,12 +22,18 @@ class RegisterUserForm(UserCreationForm):
     class Meta:
         model = User
         fields = ['username', 'password1', 'password2']
-        # widgets = { они нам не нужны потому что мы уже переопределили атрибуты класса
-        #     'username': forms.TextInput(attrs={'class': 'form-control'}),
-        #     'password1': forms.PasswordInput(attrs={'class': 'form-control'}),
-        #     'password2': forms.PasswordInput(attrs={'class': 'form-control'})
-        # }
+
 
 class LoginUserForm(AuthenticationForm):
     username = forms.CharField(label='Login', widget=forms.TextInput(attrs={'class': 'form-control'}))
     password = forms.CharField(label='Password', widget=forms.PasswordInput(attrs={'class': 'form-control'}))
+
+
+class UpdatePostForm(forms.ModelForm):
+    class Meta:
+        model = Post 
+        fields = ['title', 'content']
+        widgets = {
+            'title': forms.TextInput(attrs={'class': 'form-control'}),
+            'content': forms.Textarea(attrs={'class': 'form-control'}),
+        }
