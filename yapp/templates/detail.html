@@ -5,18 +5,13 @@
 {% block content %}
 <div class="card">
   <div class="card-header">
-    {% if post.author.last_name %}
-    {{ post.author.last_name }} {{ post.author.first_name }}<br />
-    {% else %}
-    Unknow author<br />
-    {% endif %}
+    {{ post.author.last_name }} {{ post.author.first_name }}<br/>
     {{ post.time_created|time:"H:i" }} {{post.time_created|date:"l d.m.y"}}
   </div>
-  <div class="card-body">
+<div class="card-body">
     <h5 class="card-title">{{ post.title }}</h5>
     <p class="card-text">{{ post.content }}</p>
     <a href="{% url 'home' %}" class="btn btn-primary">Back</a>
-    <a href="{% url 'update' post.pk %}" class="btn btn-warning">Edit</a>
     <a href="{% url 'del' post.id %}" class="btn btn-danger">Delete</a>
   </div>
 </div>
