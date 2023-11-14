@@ -29,7 +29,8 @@
                         <a class="nav-link active" aria-current="page" href="{% url 'logout' %}">Logout</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link disabled" aria-disabled="true">{{ user.username}}</a>
+                        <a class="nav-link disabled" aria-disabled="true">{{ user.last_name }} {{ user.first_name }} ({{
+                            user.username}})</a>
                     </li>
                     {% else %}
                     <li class="nav-item">
@@ -42,7 +43,8 @@
                 </ul>
                 <form class="d-flex" role="search" method="post" action="{% url 'search_post' %}">
                     {% csrf_token %}
-                    <input class="form-control me-2" type="search" placeholder="Find post..." aria-label="Search" name="searched">
+                    <input class="form-control me-2" type="search" placeholder="Find post..." aria-label="Search"
+                        name="searched">
                     <button class="btn btn-outline-secondary" type="submit">Search</button>
                 </form>
             </div>

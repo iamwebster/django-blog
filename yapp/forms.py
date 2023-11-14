@@ -7,10 +7,9 @@ from django.contrib.auth.models import User
 class AddPageForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ['title', 'author', 'content']
+        fields = ['title', 'content']
         widgets = {
             'title': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Write your title...'}),
-            'author': forms.Select(attrs={'class': 'form-control'}),
             'content': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Write your text...'})
         }
 

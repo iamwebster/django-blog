@@ -20,8 +20,10 @@
     <h5 class="card-title">{{ post.title }}</h5>
     <p class="card-text">{{ post.content }}</p>
     <a href="{% url 'home' %}" class="btn btn-primary">Back</a>
+    {% if request.user.username == post.author.username %}
     <a href="{% url 'update' post.pk %}" class="btn btn-warning">Edit</a>
     <a href="{% url 'del' post.id %}" class="btn btn-danger">Delete</a>
+    {% endif %}
   </div>
 </div>
 {% endblock %}

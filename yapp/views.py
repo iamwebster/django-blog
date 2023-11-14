@@ -1,5 +1,3 @@
-from typing import Any
-from django.db.models.query import QuerySet
 from .models import Post 
 from django.views.generic import ListView, DetailView, DeleteView, CreateView, UpdateView
 from django.urls import reverse_lazy
@@ -29,7 +27,9 @@ def add_page(request):
     if request.method == 'POST':
         form = AddPageForm(request.POST)
         if form.is_valid():
-            form.save()
+            submission = form.save(commit=False)
+            submission.author = request.user
+            submission.save()
             return redirect('home')
         else:
             error = 'Form was incorrect'
